@@ -9,6 +9,8 @@ int main(void){
     {
 	    int j=1,copy_every,sum = every,arr[8] = {0};
 	    copy_every = every;
+	    
+	    // 각 자리수로 분류하기 
 	    for (int i = 1000000; i >=1; i = i / 10)
 	    {
 	    	arr[j] = copy_every / i;
@@ -16,15 +18,14 @@ int main(void){
 	    	j += 1;
 		}
 		
+		//각 자리수 다 더하기 
 		for (int k = 1; k <= 7; k++)
 			sum += arr[k];
-			
+		
 		if (sum == n)
 		{
-			if (min < 0)
-				min = every;
-			else if (every < min)
-				min = every;
+			min = every;
+			break;
 		}
 	}
 	
