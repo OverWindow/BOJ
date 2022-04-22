@@ -11,12 +11,10 @@ int main(void){
 	    copy_every = every;
 	    for (int i = 1000000; i >=1; i = i / 10)
 	    {
-	    	arr[j] = every / i;
-	    	//printf("%d_",arr[j]);
-	    	every -= (every / i) * i;
+	    	arr[j] = copy_every / i;
+	    	copy_every -= (copy_every / i) * i;
 	    	j += 1;
 		}
-		
 		
 		for (int k = 1; k <= 7; k++)
 			sum += arr[k];
@@ -24,16 +22,15 @@ int main(void){
 		if (sum == n)
 		{
 			if (min < 0)
-				min = copy_every;
-			else if (copy_every < min)
-				min = copy_every;
+				min = every;
+			else if (every < min)
+				min = every;
 		}
-		
-		every = copy_every;
 	}
 	
 	if (min < 0)
 		min = 0;
+		
 	printf("%d",min);
 
 	return 0;
