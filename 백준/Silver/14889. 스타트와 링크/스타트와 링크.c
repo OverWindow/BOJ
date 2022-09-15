@@ -1,68 +1,80 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <stdbool.h>
-#define MAX(a,b) a<b?b:a
-#define MIN(a,b) a<b?a:b
-#define sz 20
-//14889
-int score[sz][sz];
-int visited[sz];
-int N,half;
-int team1[sz];
-int team2[sz];
-int s_min = 9999999;
+int N;
+int grid[20][20];
+int playerList[20];
+int min;
+int flag = 1;
 
-void start_link() {
-	// team1과 team2는 다 들어가있음
-	// 각 팀의 능력치를 비교하면 됨
-	int team1_score = 0;
-	int team2_score = 0;
-
-	for (int i = 0; i < half; i++) {
-		for (int k = 1; k <= N; k++) {
-			if (team1[i] != k && visited[k]) {
-				team1_score += score[team1[i]-1][k-1];
-			}
-			if (team2[i] != k && !visited[k]) {
-				team2_score += score[team2[i]-1][k-1];
+void playerSort(int cnt, int start) {
+	if ( cnt == N/2) {
+		int teamA[10] = {0,};
+		int teamB[10] = {0,};
+		int teamApoint = 0;
+		int teamBpoint = 0;
+		int Btmp = 0;
+		int Atmp = 0;
+		for(int i = 0 ; i < N; i++) {
+			if(playerList[i]) {
+				teamB[Btmp] = i+1;
+				Btmp += 1;
+			} else {
+				teamA[Atmp] = i+1;
+				Atmp += 1;
 			}
 		}
-	}
-	s_min = MIN(s_min, abs(team1_score - team2_score));
-}
-
-void func(int x, int start) {
-	if (x == half) {
-		int j = 0;
-		for (int i = 1; i <= N; i++) {
-			if (visited[i]) continue;
-			team2[j++] = i;
+		/*
+		for(int i = 0 ; i < N/2; i++) {
+			printf("%d ",teamA[i]);
 		}
-		start_link();
+		for(int i = 0; i < N/2; i++) {
+			printf("%d ",teamB[i]);
+		}
+		printf("\n"); */
+		for(int i = 0 ; i < N/2; i++) {
+			for(int j = 0 ; j < N/2; j++) {
+				if(i != j) {
+					teamApoint += grid[teamA[i]-1][teamA[j]-1];
+					teamBpoint += grid[teamB[i]-1][teamB[j]-1];
+				}
+			}
+		}
+	
+
+		int tmp = abs(teamApoint - teamBpoint);	
+		if(flag) {
+			min = tmp;
+			flag = 0;
+		} else if(tmp < min) {
+			min = tmp;
+		}
+		teamApoint = 0;
+		teamBpoint = 0;
 		return;
-	}
-
-	for (int i = start; i <= N; i++) {
-		if (!visited[i]) {
-			team1[x] = i;
-			visited[i] = 1;
-			func(x + 1, i+1);
-			visited[i] = 0;
+	
+	} else {
+		for(int i = start; i < N; i++) {
+			if(playerList[i]) {
+				playerList[i] = 0;
+				playerSort(cnt+1,i+1);
+				playerList[i] = 1;
+			}
 		}
 	}
 }
 
-int main() {
-	scanf("%d", &N);
-	half = N / 2;
-	for (int i = 0; i < N; i++)
-		for (int j = 0; j < N; j++)
-			scanf("%d", &score[i][j]);
+int main(void) {
+	scanf("%d",&N);	
 
-	func(0, 1);
-	printf("%d\n", s_min);
+	for(int i = 0 ; i < N; i++){
+		for (int j = 0; j < N; j++){
+			scanf("%d",&grid[i][j]);
+		}
+		playerList[i] = 1;
+	}
+	
+	playerSort(0,0); 
+	
+	printf("%d\n",min);
 	return 0;
 }
