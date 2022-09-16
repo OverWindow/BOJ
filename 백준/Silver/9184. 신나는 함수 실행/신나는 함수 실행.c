@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 int web[21][21][21];
 
 int ifZero(int a, int b, int c) {
@@ -12,15 +14,14 @@ int ifZero(int a, int b, int c) {
 }
 
 void preset(void) {
-	for(int i = 0; i <= 20; i++) {
-		for(int j = 0; j<= 20; j++) {
-			for(int k = 0; k <= 20; k++) {
-				if(i <= 0 || j <= 0 || k <= 0) {
-					web[i][j][k] = 1;
-				} else if(i < j && j < k) {
-					web[i][j][k] = web[i][j][k-1] + web[i][j-1][k-1] - web[i][j-1][k];
+	for(int i = 1; i <= 20; i++) {
+		for(int j = 1; j<= 20; j++) {
+			for(int k = 1; k <= 20; k++) {
+				if(i < j && j < k) {
+					int a,b,c;
+					web[i][j][k] = ifZero(i,j,k-1) + ifZero(i,j-1,k-1) - ifZero(i,j-1,k);
 				} else {
-					web[i][j][k] = web[i-1][j][k] + web[i-1][j-1][k] + web[i-1][j][k-1] - web[i-1][j-1][k-1];
+					web[i][j][k] = ifZero(i-1,j,k) + ifZero(i-1,j-1,k) + ifZero(i-1,j,k-1) - ifZero(i-1,j-1,k-1);
 				}
 			}
 		}
@@ -39,15 +40,6 @@ int main(void) {
 		
 		printf("w(%d, %d, %d) = %d\n",a,b,c,ifZero(a,b,c));
 		
-	}/*
-	for(int i = 1; i <= 20; i++) {
-		for(int j = 1; j <= 20; j++) {
-			for(int k = 1; k <= 20;k++) {
-				printf("%d ",web[i][j][k]);
-			}
-			printf("\n");
-		}
-	}*/
-	//printf("%d\n",ifZero(15,15,15));
+	}
 	return 0;
 }
