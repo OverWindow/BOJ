@@ -13,7 +13,7 @@ int main(void) {
 	for(int i = 0 ; i < N; i++) {
 		scanf("%d",&num);
 		sum += num;
-		r[sum % M]++;
+		r[sum % M] += 1;
 	}
 
 	long long result = r[0];
