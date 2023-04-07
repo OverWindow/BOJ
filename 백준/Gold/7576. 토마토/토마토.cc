@@ -5,7 +5,6 @@
 using namespace std;
 
 vector<vector<int>> graph;
-vector<vector<bool>> visited;
 typedef pair<int,int> pos;
 
 int di[4] = {-1,1,0,0};
@@ -35,7 +34,6 @@ int BFS() {
 			if(graph[ni][nj] == -1) continue;
 			if(graph[ni][nj] == 0) {
 				graph[ni][nj] = graph[i][j] + 1;
-				visited[ni][nj] = true;
 				que.push({ni,nj});
 			}
 		}
@@ -57,7 +55,6 @@ int main(void) {
 	
 	cin >> M >> N;
 	graph.resize(N,vector<int>(M,0));
-	visited.resize(N,vector<bool>(M,false));
 	for(int i = 0; i < N; i++) {
 		for(int j = 0; j < M; j++) {
 			cin >> graph[i][j];
