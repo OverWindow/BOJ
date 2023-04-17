@@ -40,7 +40,7 @@ int main() {
 	// sum[i] - sum[j] == N
 	int cnt = 0;
 	int i = 0;
-	int j = 0;
+	int j = 1;
 	while(i <= j && j < Sum.size() ) {
 		if(Sum[j] - Sum[i] == N) {
 			cnt += 1;
