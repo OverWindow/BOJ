@@ -43,7 +43,7 @@ int main() {
 	
 	int N,M;
 	cin >> N >> M;
-	ans = 0;
+	ans = 10000;
 	sum = 0;
 	high = 1;
 	
