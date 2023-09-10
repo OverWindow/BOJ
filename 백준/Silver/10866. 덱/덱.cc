@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// 10866 Deque
+
 typedef struct node {
 	int value;
 	node *forward;
@@ -98,6 +100,9 @@ int back(deque *dq) {
 }
 
 int main(void) {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 	deque dq;
 	dq.size = 0;
 	
