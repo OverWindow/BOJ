@@ -4,6 +4,8 @@
 #define INF 987654321
 using namespace std;
 
+// 1865 BellmanFord
+
 int T,N,M,W;
 struct road {
 	int from;
@@ -40,8 +42,7 @@ int main(void) {
 		
 		bool negative_cycle = false;
 		for(int i = 1; i <= 1; i++) {
-			fastest.resize(N+1,INF);
-			fastest[i] = 0;
+			fastest.resize(N+1,0);
 			
 			for(int j = 0; j < N - 1; j++) {
 				for(struct road k : route) {
